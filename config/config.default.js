@@ -1,7 +1,4 @@
 'use strict';
-
-import sxyConfig from "./config.sxy";
-
 module.exports = appInfo => {
   const config = exports = {};
 
@@ -11,7 +8,7 @@ module.exports = appInfo => {
   // add your config here
   config.middleware = [];
 
-  import sxyConfig from './config.sxy';
+  const sxyConfig = require('./config.sxy.js');
 
   config.sequelize = {
     dialect:'mysql',
