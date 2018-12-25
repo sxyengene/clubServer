@@ -9,7 +9,6 @@ module.exports = appInfo => {
   config.middleware = [];
 
   const sxyConfig = require('./config.sxy.js');
-
   config.sequelize = {
     dialect:'mysql',
     port:3306,
