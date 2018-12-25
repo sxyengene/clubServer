@@ -8,4 +8,5 @@ module.exports = app => {
   router.get('/', controller.home.index);
   router.get('/sign',controller.sign.sign);
   router.get('/allCourses',controller.course.allCourses);
+  router.get('/allUsers',controller.user.allUsers);
 };

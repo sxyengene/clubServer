@@ -13,6 +13,12 @@ module.exports = appInfo => {
   config.sequelize = {
     dialect:'mysql',
     port:3306,
+    define:{
+      freezeTableName:true,
+      createdAt:false,
+      updatedAt:false,
+      deletedAt:false,
+    }
   }
 
   Object.assign(config.sequelize,sxyConfig);
