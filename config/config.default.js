@@ -6,7 +6,11 @@ module.exports = appInfo => {
   config.keys = appInfo.name + '_1544054905245_8727';
 
   // add your config here
-  config.middleware = [];
+  config.middleware = [
+      'format'
+  ];
+
+
 
   const sxyConfig = require('./config.sxy.js');
   config.sequelize = {
