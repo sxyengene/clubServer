@@ -7,9 +7,12 @@ module.exports = appInfo => {
 
   // add your config here
   config.middleware = [
-      'format'
+    'format'
   ];
 
+  exports.format ={
+    enable:true
+  }
 
 
   const sxyConfig = require('./config.sxy.js');

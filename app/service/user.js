@@ -12,6 +12,16 @@ class UserService extends Service {
     return user;
   }
 
+  async findByName(name) {
+    // 假如 我们拿到用户 id 从数据库获取用户详细信息
+    let user = await this.ctx.model.User.findOne({where:{id:name}});
+    return user;
+  }
+
+  async addUser(params){
+
+  }
+
   async getAllInfo(uid){
     let user = await this.ctx.model.User.findOne({where:{id:uid}});
     let userInfo = await this.getAllInfo(uid);

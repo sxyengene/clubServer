@@ -27,7 +27,18 @@ module.exports = (app) => {
     }
 
     async new(){
-
+      let params = ctx.params;
+      let user,result;
+      if( !! params.name && !!params.password){
+        user = await ctx.service.user.findById(params.name);
+        if(user === null){
+          result = await ctx.service.user.addUser(params);
+          if(!!result){
+            ctx.body = 'success';
+            return;
+          }
+        }
+      }
     }
 
 
