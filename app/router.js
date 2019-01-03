@@ -11,6 +11,7 @@ module.exports = app => {
 
   /*user*/
   router.get('/users/all',controller.users.allUsers);
-  router.resources('users', '/users', controller.users);
+  router.get('/users/findByName', controller.users.findByName);
 
+  router.resources('users', '/users', controller.users);
 };
