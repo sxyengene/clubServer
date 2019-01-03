@@ -27,5 +27,12 @@ class UserService extends Service {
     let userInfo = await this.getAllInfo(uid);
     return userInfo;
   }
+
+  async isLogin(uid){
+    let user = await this.findById(uid);
+    if(!!user){
+
+    }
+  }
 }
 module.exports = UserService;
