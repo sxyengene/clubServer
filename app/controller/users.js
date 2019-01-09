@@ -37,19 +37,25 @@ module.exports = (app) => {
       }
     }
 
-    async new(ctx){
+    async signUp(ctx){
       let query = ctx.query;
       let user,result;
-      console.log(`query.name = ${query.name}, query.password = ${query.password}`);
-      if( !! query.name && !!query.password && !!query.department && !!query.nickname){
-        user = await ctx.service.user.findByName(query.name);
-        console.log(`user=${user}`);
-        if(user == null){
-          result = await ctx.service.user.upsertUser(query);
-          if(!!result){
-            ctx.body = 'success';
-            return;
-          }
+      const rule = {
+        name:{type:'string', required:true,message:'name is necessary'},
+        password:{type:'string', required:true,message:'password is necessary'},
+        department:{type:'string', required:true,message:'department is necessary'},
+        nickname:{type:'string', required:true,message:'nickname is necessary'},
+      }
+      await ctx.validate(rule, query);
+
+      user = await ctx.service.user.findByName(query.name);
+      if(user == null){
+        var password = ctx.helper.encrypt(query.password);
+        query.password = password;
+        result = await ctx.service.user.upsertUser(query);
+        if(!!result){
+          ctx.body = 'success';
+          return;
         }
       }
     }

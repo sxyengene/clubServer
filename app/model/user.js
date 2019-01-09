@@ -9,6 +9,7 @@ module.exports = app => {
     name:STRING(20),
     department:STRING(20),
     nickname:STRING(50),
+    password:STRING(50),
   });
 
   return User;

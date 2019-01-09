@@ -27,6 +27,8 @@ module.exports = appInfo => {
     }
   }
 
-  Object.assign(config.sequelize,sxyConfig);
+  config.salt = sxyConfig.salt;
+
+  Object.assign(config.sequelize,sxyConfig.sequelize);
   return config;
 };
