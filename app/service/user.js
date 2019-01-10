@@ -13,6 +13,7 @@ class UserService extends Service {
   }
 
   async findByName(name) {
+    console.log('findByName');
     let user = await this.ctx.model.User.findOne({where:{name:name}});
     return user;
   }
@@ -22,10 +23,38 @@ class UserService extends Service {
     return user;
   }
 
+  async isLogin(){
+    const token = ctx.cookies.get('token');
+    let user,query = ctx.query;
+    console.log(123)
+    if(!!query.name){
+      user = await this.findByName(query.name);
+      console.log(`isLoginUser=${user}`);
+      console.log(`isLogintoken=${token}`);
+      if(user.token == token){
+        return user;
+      }else{
+        return false;
+      }
+    }
+
+
+    if(token){
+      user = await this.ctx.model.User.findOne({where:{token:token}});
+      return user;
+    }else{
+      return false;
+    }
+  }
+
   async getAllInfo(uid){
     let user = await this.ctx.model.User.findOne({where:{id:uid}});
     let userInfo = await this.getAllInfo(uid);
     return userInfo;
+  }
+
+  async outOfDate(){
+
   }
 
   async isLogin(uid){

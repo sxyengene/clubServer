@@ -11,7 +11,8 @@ module.exports = appInfo => {
   ];
 
   exports.format ={
-    enable:true
+    enable:true,
+    // enable:false
   }
 
 
