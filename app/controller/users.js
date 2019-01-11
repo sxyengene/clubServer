@@ -82,28 +82,37 @@ module.exports = (app) => {
 
       var token = ctx.cookies.get('token');
       user = await ctx.service.user.findByName(signInMsg.name);
+      if(!user){
+        ctx.body = 'bad password or not signed';
+        return;
+      }
+      console.log(`signInMsg=${ctx.helper.encrypt(signInMsg.password)}`)
+      console.log(`user.password=${user.password}`)
       /*密码验证通过*/
       if(ctx.helper.encrypt(signInMsg.password) == user.password){
         let lastvisit = new Date();
-        let expires = new Date(lastvisit.getTime() + 2 * 60 *60 *1000 );
+        let expires = new Date(lastvisit.getTime() + 2 * 60 *10 *1000 );
         let token = ctx.helper.encrypt(user.id.toString() + user.name.toString());
-        ctx.cookies.set('token',ctx.helper.encrypt(user.name),{
+        ctx.cookies.set('token',token,{
           expires:expires,
           signed:true,
         });
         ctx.service.user.upsertUser({id:user.id,lastvisit:lastvisit.getTime(),token:token});
         ctx.body = 'login success';
       }else{
-        ctx.body = 'bad password';
+        ctx.body = 'bad password or not signed';
       }
+    }
+
+    async signOut(ctx){
+      ctx.cookies.set('token','');
+      ctx.body = 'success';
     }
 
     async edit(ctx){
       let query = ctx.query;
       let user,result;
       const rule = {
-        name:{type:'string', required:true,message:'name is necessary'},
-        password:{type:'string', required:true,message:'password is necessary'},
         department:{type:'string', required:true,message:'department is necessary'},
         nickname:{type:'string', required:true,message:'nickname is necessary'},
       }
@@ -115,24 +124,16 @@ module.exports = (app) => {
       }
       var isLogin = await ctx.service.user.isLogin();
       
-      console.log(`isLogin=${isLogin}`);
-      if(!!isLogin){
-        ctx.body = 'logined'
-      }else{
-        ctx.body = 'not logined'
+      if(!isLogin){
+        ctx.body = 'not logined';
+        return;
       }
-      return;
-
-
 
       user = await ctx.service.user.findByName(query.name);
-      console.log(`user=${user}`);
       if(user != null){
-        result = await ctx.service.user.upsertUser(query);
-        if(!!result){
-          ctx.body = 'success';
-          return;
-        }
+        await ctx.service.user.upsertUser({id:user.id,department:query.department,nickname:query.nickname});
+        ctx.body = 'success';
+        return;
       }
     }
   }

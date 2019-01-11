@@ -6,6 +6,7 @@ class UserService extends Service {
   //   // 就可以直接通过 this.ctx 获取 ctx 了
   //   // 还可以直接通过 this.app 获取 app 了
   // }
+
   async findById(uid) {
     // 假如 我们拿到用户 id 从数据库获取用户详细信息
     let user = await this.ctx.model.User.findOne({where:{id:uid}});
@@ -24,26 +25,15 @@ class UserService extends Service {
   }
 
   async isLogin(){
-    const token = ctx.cookies.get('token');
+    const ctx = this.ctx,token = ctx.cookies.get('token');
     let user,query = ctx.query;
-    console.log(123)
     if(!!query.name){
       user = await this.findByName(query.name);
-      console.log(`isLoginUser=${user}`);
-      console.log(`isLogintoken=${token}`);
       if(user.token == token){
         return user;
       }else{
         return false;
       }
-    }
-
-
-    if(token){
-      user = await this.ctx.model.User.findOne({where:{token:token}});
-      return user;
-    }else{
-      return false;
     }
   }
 
@@ -55,13 +45,6 @@ class UserService extends Service {
 
   async outOfDate(){
 
-  }
-
-  async isLogin(uid){
-    let user = await this.findById(uid);
-    if(!!user){
-
-    }
   }
 }
 module.exports = UserService;
