@@ -1,1 +1,1 @@
-docker build -t sxyengene/clubServer .
+docker build -t sxyengene/clubserver .
