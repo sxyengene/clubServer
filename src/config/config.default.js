@@ -7,9 +7,13 @@ module.exports = appInfo => {
 
   // add your config here
   config.middleware = [
-      'format'
+    'format'
   ];
 
+  exports.format ={
+    enable:true,
+    // enable:false
+  }
 
 
   const sxyConfig = require('./config.sxy.js');
@@ -24,6 +28,8 @@ module.exports = appInfo => {
     }
   }
 
-  Object.assign(config.sequelize,sxyConfig);
+  config.salt = sxyConfig.salt;
+
+  Object.assign(config.sequelize,sxyConfig.sequelize);
   return config;
 };

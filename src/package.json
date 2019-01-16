@@ -14,8 +14,10 @@
     "egg-bin": "^4.3.5",
     "egg-ci": "^1.8.0",
     "egg-mock": "^3.14.0",
+    "egg-validate": "^2.0.2",
     "eslint": "^4.11.0",
     "eslint-config-egg": "^6.0.0",
+    "koa-csrf": "^3.0.6",
     "mysql2": "^1.6.4",
     "webstorm-disable-index": "^1.2.0"
   },

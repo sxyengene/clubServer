@@ -4,9 +4,17 @@
  * @param {Egg.Application} app - egg application
  */
 module.exports = app => {
-  const { router, controller } = app;
+  const { router, controller,middleware } = app;
   router.get('/', controller.home.index);
   router.get('/sign',controller.sign.sign);
   router.get('/allCourses',controller.course.allCourses);
-  router.get('/allUsers',controller.user.allUsers);
+
+  /*user*/
+  router.get('/users/all',controller.users.allUsers);
+  router.get('/signUp',controller.users.signUp);
+  router.get('/signIn',controller.users.signIn);
+  router.get('/signOut',controller.users.signOut);
+  router.get('/users/findByName', controller.users.findByName);
+
+  router.resources('users', '/users', controller.users);
 };
