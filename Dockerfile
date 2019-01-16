@@ -3,7 +3,6 @@ FROM sxyengene/centos7node10
 WORKDIR /var/www/html/
 
 COPY ./src/package.json /tmp/npmpkgs/
-COPY ./src/package-lock.json /tmp/npmpkgs/
 COPY ./src/.travis.yml /tmp/npmpkgs/
 COPY ./src/appveyor.yml /tmp/npmpkgs/
 COPY ./src/.autod.conf.js /tmp/npmpkgs/
