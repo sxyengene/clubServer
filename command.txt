@@ -1,3 +1,5 @@
 docker build -t sxyengene/clubserver .
 
 docker run --rm -it sxyengene/clubserver /bin/sh
+
+docker run -d -p 7001:7001 sxyengene/clubserver
