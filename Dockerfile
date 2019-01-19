@@ -2,14 +2,15 @@ FROM sxyengene/centos7node10
 
 WORKDIR /var/www/html/
 
-COPY ./src/package.json /tmp/npmpkgs/
-COPY ./src/.travis.yml /tmp/npmpkgs/
-COPY ./src/appveyor.yml /tmp/npmpkgs/
-COPY ./src/.autod.conf.js /tmp/npmpkgs/
+COPY ./src/node_modules /tmp/npmpkgs/node_modules
 
-RUN cd /tmp/npmpkgs/ && npm install -S
+#COPY ./src/appveyor.yml /tmp/npmpkgs/
+#COPY ./src/.autod.conf.js /tmp/npmpkgs/
 
-RUN git clone https://github.com/sxyengene/clubServer.git && \
-	cd /var/www/html/clubServer/src/ && ln -s /tmp/npmpkgs/node_moduels ./ 
+#RUN cd /tmp/npmpkgs/ && npm install -S
 
+RUN git clone https://github.com/sxyengene/clubServer.git && \	
+	cd /var/www/html/clubServer/src/ && ln -s /tmp/npmpkgs/node_modules ./ 
+
+#RUN cd /var/www/html/clubServer/  && git ls-tree HEAD && git update-index --chmod=+x ** && git ls-tree HEAD
 EXPOSE 7001
