@@ -12,6 +12,7 @@ module.exports = app => {
     password:STRING(100),
     token:STRING(100),
     lastvisit:STRING(20),
+    openid:STRING(20),
   });
 
   return User;
