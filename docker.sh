@@ -1,5 +1,7 @@
 #!/bin/bash
-docker rm sxyengene/clubserver
+git pull
+
+docker ps | grep sxyengene/clubserver | xargs docker rm -f
 
 docker build -t sxyengene/clubserver .
 
