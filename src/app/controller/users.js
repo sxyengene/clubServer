@@ -176,6 +176,31 @@ module.exports = app => {
         return;
       }
     }
+
+
+    async submitWxInfo(ctx){
+      let user,
+        result,
+        query = ctx.query;
+      const rule = {
+        name: { type: 'string', required: true, message: 'name is necessary' },
+        nickname: { type: 'string', required: true, message: 'nickname is necessary' },
+        department: { type: 'string', required: true, message: 'department is necessary' },
+        openid: { type: 'string', required: true, message: 'openid is necessary' },
+      };
+
+      try {
+        await ctx.validate(rule, query);
+      } catch (e) {
+        ctx.body = e;
+      }
+
+      result = await ctx.service.users.upsertUser(query);
+      if (result) {
+        ctx.body = 'success';
+        return;
+      }
+    }
   }
 
   return UsersController;
