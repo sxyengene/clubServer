@@ -11,11 +11,15 @@ module.exports = app => {
 
   /*user*/
   router.get('/users/all',controller.users.allUsers);
-  router.get('/wxlogin',controller.users.wxlogin);
+
   router.get('/signUp',controller.users.signUp);
   router.get('/signIn',controller.users.signIn);
   router.get('/signOut',controller.users.signOut);
   router.get('/users/findByName', controller.users.findByName);
+
+
+  router.get('/wx/wxlogin',controller.users.wxlogin);
+  router.get('/wx/submitWxInfo',controller.users.submitWxInfo);
 
   router.resources('users', '/users', controller.users);
 };

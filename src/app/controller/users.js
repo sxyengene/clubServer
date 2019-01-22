@@ -79,8 +79,11 @@ module.exports = app => {
 
       try {
         await ctx.validate(rule, loginQuery);
+
       } catch (e) {
+        ctx.status = 400;
         ctx.body = e;
+        return;
       }
 
       const url = `https://api.weixin.qq.com/sns/jscode2session?appid=${sxyConfig.appid}&secret=${sxyConfig.secret}&js_code=${loginQuery.jscode}&grant_type=authorization_code`;
@@ -192,12 +195,20 @@ module.exports = app => {
       try {
         await ctx.validate(rule, query);
       } catch (e) {
+        ctx.status = 400;
         ctx.body = e;
+        return;
       }
 
-      result = await ctx.service.users.upsertUser(query);
+      result = await ctx.service.user.upsertUser(query);
       if (result) {
+        ctx.status = 200;
         ctx.body = 'success';
+        return;
+      }else{
+        //用户已存在
+        ctx.status = 400;
+        ctx.body = 'fail';
         return;
       }
     }

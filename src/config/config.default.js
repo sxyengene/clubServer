@@ -32,5 +32,11 @@ module.exports = appInfo => {
   config.salt = sxyConfig.salt;
 
   Object.assign(config.sequelize,sxyConfig.sequelize);
+
+
+  /*http 状态码
+  * 1000 query校验未通过
+   */
+
   return config;
 };
