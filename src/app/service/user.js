@@ -19,6 +19,12 @@ class UserService extends Service {
     return user;
   }
 
+  async findByOpenid(openid) {
+    console.log('findByName');
+    let user = await this.ctx.model.User.findOne({where:{openid:openid}});
+    return user;
+  }
+
   async upsertUser(params){
     let user = await this.ctx.model.User.upsert(params);
     return user;
