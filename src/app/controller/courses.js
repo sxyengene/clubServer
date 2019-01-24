@@ -1,10 +1,14 @@
 'use strict';
-module.exports = (app)=>{
+module.exports = app => {
   const Controller = require('egg').Controller;
 
   class CoursesController extends Controller {
-    async allCourses() {
-      let result = await this.ctx.model.Course.findAll();
+    constructor(ctx) {
+      super(ctx);
+    }
+
+    async allCourses(ctx) {
+      const result = await ctx.service.course.allCourses();
       this.ctx.body = result;
     }
   }
