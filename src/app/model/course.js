@@ -4,11 +4,15 @@ module.exports = app => {
   const Course = app.model.define('course', {
     coursename: STRING(50),
     coursetime: INTEGER(11),
-    id: INTEGER(11),
+    id: {
+      type: INTEGER(11),
+      primaryKey: true,
+    },
     name: {
-      type:STRING(50),
-      primaryKey:true
-    }
+      type: STRING(50),
+    },
+    meeting: STRING(50),
+    floor: INTEGER(50),
   });
 
   return Course;
