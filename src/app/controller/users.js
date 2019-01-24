@@ -181,7 +181,7 @@ module.exports = app => {
     }
 
 
-    async submitWxInfo(ctx){
+    async submitWxInfo(ctx) {
       let user,
         result,
         query = ctx.query;
@@ -205,12 +205,12 @@ module.exports = app => {
         ctx.status = 200;
         ctx.body = 'success';
         return;
-      }else{
-        //用户已存在
-        ctx.status = 400;
-        ctx.body = 'fail';
-        return;
       }
+      // 用户已存在
+      ctx.status = 400;
+      ctx.body = 'fail';
+      return;
+
     }
   }
 

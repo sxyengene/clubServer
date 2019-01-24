@@ -1,6 +1,5 @@
 'use strict';
 module.exports = appInfo => {
-  console.log(123123)
   const config = exports = {};
 
   // use for cookie sign key, should change to your own and keep security
@@ -8,33 +7,33 @@ module.exports = appInfo => {
 
   // add your config here
   config.middleware = [
-    'format'
+    'format',
   ];
 
-  exports.format ={
-    enable:true,
+  exports.format = {
+    enable: true,
     // enable:false
-  }
+  };
 
 
   const sxyConfig = require('./config.sxy.js');
   config.sequelize = {
-    dialect:'mysql',
-    port:3306,
-    define:{
-      freezeTableName:true,
-      createdAt:false,
-      updatedAt:false,
-      deletedAt:false,
-    }
-  }
+    dialect: 'mysql',
+    port: 3306,
+    define: {
+      freezeTableName: true,
+      createdAt: false,
+      updatedAt: false,
+      deletedAt: false,
+    },
+  };
 
   config.salt = sxyConfig.salt;
 
-  Object.assign(config.sequelize,sxyConfig.sequelize);
+  Object.assign(config.sequelize, sxyConfig.sequelize);
 
 
-  /*http 状态码
+  /* http 状态码
   * 1000 query校验未通过
    */
 
