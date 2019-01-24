@@ -1,9 +1,9 @@
 module.exports = app => {
-  const { STRING, INTEGER, DATE } = app.Sequelize;
+  const { STRING, INTEGER } = app.Sequelize;
   // Object.keys(app.Sequelize).forEach((v)=>{console.log(v)});
   const Course = app.model.define('course', {
     coursename: STRING(50),
-    coursetime: INTEGER(11),
+    coursetime: INTEGER(15),
     id: {
       type: INTEGER(11),
       primaryKey: true,
