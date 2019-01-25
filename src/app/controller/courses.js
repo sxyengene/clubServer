@@ -27,7 +27,7 @@ module.exports = app => {
         if (!obj[val.dataValues.year][val.dataValues.month]) {
           obj[val.dataValues.year][val.dataValues.month] = [];
         }
-        obj[val.dataValues.year][val.dataValues.month].push(temp);
+        obj[val.dataValues.year][val.dataValues.month].unshift(temp);
       });
       result.list = obj;
       this.ctx.body = result;
