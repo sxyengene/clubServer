@@ -10,7 +10,7 @@ class CourseService extends Service {
   async allCourses() {
     // 假如 我们拿到用户 id 从数据库获取用户详细信息
     const courses = await this.ctx.model.Course.findAll({
-      order: [[ 'coursetime', 'ASC' ]],
+      order: [[ 'coursetime', 'DESC' ]],
     });
     return courses;
   }
