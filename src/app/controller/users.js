@@ -8,11 +8,11 @@ module.exports = app => {
       super(ctx);
     }
 
-	  async allUsers() {
-		  this.ctx.body = await this.ctx.model.User.findAll({});
-	  }
+    async allUsers() {
+      this.ctx.body = await this.ctx.model.User.findAll({});
+    }
 
-	  async index() {
+	  async index(ctx) {
       console.log(ctx.params.id);
     }
 
