@@ -7,17 +7,14 @@ class SignService extends Service {
   //   // 还可以直接通过 this.app 获取 app 了
   // }
 
-  async allCourses() {
-    // 假如 我们拿到用户 id 从数据库获取用户详细信息
-    const courses = await this.ctx.model.Course.findAll({
-      order: [[ 'coursetime', 'DESC' ]],
-    });
-    return courses;
+  async upsertSign(params) {
+    const result = await this.ctx.model.Sign.upsert(params);
+    return result;
   }
 
-  async upsertSign(params) {
-    const user = await this.ctx.model.Course.upsert(params);
-    return user;
+  async findByUserAndCourse(userid, courseid) {
+    const result = await this.ctx.model.Sign.findOne({ where: { userid, courseid } });
+    return result;
   }
 
 }

@@ -12,19 +12,46 @@ class SignController extends Controller {
     const rule = {
       openid: { type: 'string', required: true, message: 'openid is necessary' },
       courseid: { type: 'string', required: true, message: 'courseid is necessary' },
-      userid: { type: 'string', required: true, message: 'userid is necessary' },
     };
 
     try {
       await ctx.validate(rule, query);
     } catch (e) {
-      ctx.status = 1000;
+      ctx.body = e;
       return;
     }
 
-    const user = await ctx.service.user.findById(query);
+    const user = await ctx.service.user.findByOpenid(query.openid);
     if (user) {
-      ctx.body = user;
+      let hasCourse = await ctx.service.course.findByCourseid(query.courseid);
+      //无课程
+      if(!hasCourse){
+        ctx.body = 'no course';
+        return;
+      }
+      
+      let hasSigned = await ctx.service.sign.findByUserAndCourse(user.id,query.courseid);
+      if(hasSigned){
+        //已签到
+        ctx.body = 'has signed';
+        return;
+      }
+
+      let signtime = new Date().getTime();
+      console.log(signtime);
+
+      let upsertData = {
+        userid:user.id,
+        courseid:query.courseid,
+        signtime,
+      }
+
+      await ctx.service.sign.upsertSign(upsertData);
+      ctx.body = 'success';
+      ctx.status = 200;
+      return;
+    }else{
+      ctx.body = 'no user';
       return;
     }
   }

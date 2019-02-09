@@ -6,7 +6,7 @@
 module.exports = app => {
   const { router, controller,middleware } = app;
   router.get('/', controller.home.index);
-  router.get('/sign',controller.sign.sign);
+  router.get('/wx/sign',controller.sign.sign);
   router.get('/wx/allCourses',controller.courses.allCourses);
 
   /*user*/

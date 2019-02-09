@@ -1,7 +1,7 @@
 module.exports = app => {
   const { STRING, INTEGER } = app.Sequelize;
 
-  const Sign = app.model.define('course', {
+  const Sign = app.model.define('sign', {
     courseid: INTEGER(11),
     userid: INTEGER(11),
     signtime: STRING(20),

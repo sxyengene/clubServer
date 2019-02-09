@@ -21,11 +21,10 @@ class CourseService extends Service {
   //   return user;
   // }
 
-  // async findByOpenid(openid) {
-  //   console.log('findByName');
-  //   const user = await this.ctx.model.User.findOne({ where: { openid } });
-  //   return user;
-  // }
+  async findByCourseid(courseid) {
+    const result = await this.ctx.model.Course.findAll({ where: { id: courseid } });
+    return result;
+  }
 
   async upsertUser(params) {
     const user = await this.ctx.model.Course.upsert(params);
