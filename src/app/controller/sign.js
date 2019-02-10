@@ -17,6 +17,7 @@ class SignController extends Controller {
     try {
       await ctx.validate(rule, query);
     } catch (e) {
+      ctx.status = 417;
       ctx.body = e;
       return;
     }
@@ -27,6 +28,7 @@ class SignController extends Controller {
       //无课程
       if(!hasCourse){
         ctx.body = 'no course';
+        ctx.status = 417;
         return;
       }
       
@@ -34,6 +36,7 @@ class SignController extends Controller {
       if(hasSigned){
         //已签到
         ctx.body = 'has signed';
+        ctx.status = 417;
         return;
       }
 
@@ -51,6 +54,7 @@ class SignController extends Controller {
       ctx.status = 200;
       return;
     }else{
+      ctx.status = 417;
       ctx.body = 'no user';
       return;
     }
