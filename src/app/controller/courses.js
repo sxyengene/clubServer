@@ -22,6 +22,28 @@ module.exports = app => {
       this.ctx.body = result;
     }
 
+    async findByCourseId(ctx){
+      const query = ctx.query;
+      const rule = {
+        id: { type: 'string', required: true, message: 'id is necessary' },
+      };
+
+      try {
+        await ctx.validate(rule, query);
+      } catch (e) {
+        ctx.status = 417;
+        ctx.body = e;
+        return;
+      }
+      let course = await this.ctx.service.course.findByCourseid(query.id);
+      if(course.length){
+        ctx.body = course[0];
+      }else{
+        ctx.status = 417;
+        ctx.body = 'no course';
+      }
+    }
+
     // async allCourses(ctx) {
     //   let query = ctx.query,user;
     //   if(query.openid){

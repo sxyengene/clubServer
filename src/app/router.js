@@ -8,6 +8,7 @@ module.exports = app => {
   router.get('/', controller.home.index);
   router.get('/wx/sign',controller.sign.sign);
   router.get('/wx/allCourses',controller.courses.allCourses);
+  router.get('/wx/findByCourseId',controller.courses.findByCourseId);
 
   /*user*/
   router.get('/users/all',controller.users.allUsers);
