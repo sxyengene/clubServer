@@ -10,6 +10,9 @@ module.exports = app => {
   router.get('/wx/allCourses',controller.courses.allCourses);
   router.get('/wx/findByCourseId',controller.courses.findByCourseId);
 
+  router.get('/wx/addComment',controller.comment.addComment);
+  router.get('/wx/commentFindByCourseId',controller.comment.findByCourseId);
+
   /*user*/
   router.get('/users/all',controller.users.allUsers);
 

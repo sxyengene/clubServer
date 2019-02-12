@@ -26,7 +26,7 @@ class CourseService extends Service {
     return result;
   }
 
-  async upsertUser(params) {
+  async upsertCourse(params) {
     const user = await this.ctx.model.Course.upsert(params);
     return user;
   }
