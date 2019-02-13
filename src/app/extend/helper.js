@@ -6,5 +6,8 @@ module.exports = {
       .update(str)
       .digest('hex');
     return result;
+  },
+  formatDate(date){
+    return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}`
   }
 }
