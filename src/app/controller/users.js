@@ -18,8 +18,8 @@ module.exports = app => {
 
     async show(ctx) {
       let user;
-      if (ctx.query.id) {
-        user = await ctx.service.user.findById(ctx.query.id);
+      if (ctx.query.openid) {
+        user = await ctx.service.user.findById(ctx.query.openid);
         if (user) {
           let userObj = {
             name:user.name,
