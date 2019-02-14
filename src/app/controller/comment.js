@@ -20,9 +20,34 @@ module.exports = app => {
         ctx.body = e;
         return;
       }
-      const comment = await this.ctx.service.comment.findByCourseId(query.courseid);
-      if (comment.length) {
-        ctx.body = comment;
+
+      let userids = [],
+        result = [],
+        date,
+        userObj = {};
+      /*填装result ctime content*/
+      const comment = await ctx.service.comment.findByCourseId(query.courseid);
+      for (const item of comment) {
+        userids.push(item.userid);
+        date = new Date(+item.commenttime);
+        result.push({
+          content: item.content,
+          userid: item.userid,
+          ctime: ctx.helper.formatDate(date),
+        });
+      }
+      /*查用户转成Obj*/
+      const users = await ctx.service.user.findByIds(userids);
+      for (const item of users) {
+        userObj[item.id] = item.name;
+      }
+      /*对result 对应id 赋值对应 name*/
+      for (const item of result) {
+        item.name = userObj[item.userid];
+      }
+
+      if (result.length) {
+        ctx.body = result;
       } else {
         ctx.status = 417;
         ctx.body = 'no comment';
@@ -45,27 +70,27 @@ module.exports = app => {
       }
 
       const user = await ctx.service.user.findByOpenid(query.openid);
-      if(!user){
+      if (!user) {
         ctx.status = 417;
         ctx.body = 'no user';
         return;
       }
 
-      let hasCourse = await ctx.service.course.findByCourseid(query.courseid);
-      //无课程
-      if(!hasCourse){
+      const hasCourse = await ctx.service.course.findByCourseid(query.courseid);
+      // 无课程
+      if (!hasCourse) {
         ctx.body = 'no course';
         ctx.status = 417;
         return;
       }
 
-      let upsertData = {
-        valid:1,
-        courseid:query.courseid,
-        content:query.content,
+      const upsertData = {
+        valid: 1,
+        courseid: query.courseid,
+        content: query.content,
         commenttime: new Date().getTime(),
-        userid:user.id
-      }
+        userid: user.id,
+      };
 
       await ctx.service.comment.upsertComment(upsertData);
       ctx.body = 'success';
