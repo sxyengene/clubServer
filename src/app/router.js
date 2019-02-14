@@ -23,6 +23,7 @@ module.exports = app => {
 
 
   router.get('/wx/wxlogin',controller.users.wxlogin);
+  router.get('/wx/findUserById',controller.users.show);
   router.get('/wx/submitWxInfo',controller.users.submitWxInfo);
 
   router.resources('users', '/users', controller.users);

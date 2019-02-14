@@ -18,12 +18,20 @@ module.exports = app => {
 
     async show(ctx) {
       let user;
-      if (ctx.params.id) {
-        user = await ctx.service.user.findById(ctx.params.id);
+      if (ctx.query.id) {
+        user = await ctx.service.user.findById(ctx.query.id);
         if (user) {
-          ctx.body = user;
+          let userObj = {
+            name:user.name,
+            department:user.department,
+            nickname:user.nickname,
+          };
+          ctx.body = userObj;
           return;
         }
+      }else{
+        ctx.status = 417;
+        ctx.body = 'no id';
       }
     }
 
