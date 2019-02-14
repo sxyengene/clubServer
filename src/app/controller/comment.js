@@ -69,6 +69,12 @@ module.exports = app => {
         return;
       }
 
+      if(query.content.length <= 5){
+        ctx.status = 417;
+        ctx.body = 'at least 5 words';
+        return;
+      }
+
       const user = await ctx.service.user.findByOpenid(query.openid);
       if (!user) {
         ctx.status = 417;
