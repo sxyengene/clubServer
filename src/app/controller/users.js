@@ -19,14 +19,18 @@ module.exports = app => {
     async show(ctx) {
       let user;
       if (ctx.query.openid) {
-        user = await ctx.service.user.findById(ctx.query.openid);
+        user = await ctx.service.user.findByOpenid(ctx.query.openid);
         if (user) {
-          let userObj = {
+            let userObj = {
             name:user.name,
             department:user.department,
             nickname:user.nickname,
           };
           ctx.body = userObj;
+          return;
+        }else{
+          ctx.status = 417;
+          ctx.body = 'no user';
           return;
         }
       }else{
