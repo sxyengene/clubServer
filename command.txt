@@ -4,4 +4,4 @@ docker run --rm -it sxyengene/clubserver /bin/sh
 
 docker run -d -p 7001:7001 sxyengene/clubserver
 
-docker run -d -p 7001:7001 -v /root/git/clubServer/src/logs/:/var/www/html/clubServer/src/logs/ -v /etc/localtime:/etc/localtime sxyengene/clubserver
+docker run -d --restart=always  -p 7001:7001 -v /root/git/clubServer/src/logs/:/var/www/html/clubServer/src/logs/ -v /etc/localtime:/etc/localtime sxyengene/clubserver
